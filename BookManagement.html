@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Books Management System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyProductManagement.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
+</head>
+
+<body>
+	
+			<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Root.html" style = 'padding-left: 40px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>     
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>	
+	
+    <div id="container">
+        <div id="content">
+            <h2>Books Management System</h2>
+            
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+            
+        	<div class="input categoryid required">
+                <label for="book_categoryid">Choose Book Category</label>
+                	<select name="categoryid" id="book_categoryid">
+                		<option value = 1>Fantasy</option>
+                		<option value = 2>Science Fiction</option>
+                		<option value = 3>Action & Adventure</option>
+                		<option value = 4>Mystery</option>
+                		<option value = 5>Horror</option>
+                		<option value = 6>Thriller & Suspense</option>
+                		<option value = 7>Historical Fiction</option>
+                		<option value = 8>Romance</option>
+                		<option value = 9>Women's Fiction</option>
+                		<option value = 10>LGBTQ+</option>
+                		<option value = 11>Contemporary Fiction</option>
+                		<option value = 12>Literary Fiction</option>
+                		<option value = 13>Magical Realism</option>
+                		<option value = 14>Graphic Novel</option>
+                		<option value = 15>Short Story</option>
+                		<option value = 16>Young Adult</option>
+                		<option value = 17>New Adult</option>
+                		<option value = 18>Children's</option>
+                		<option value = 19>Memoir & Autobiography</option>
+                		<option value = 20>Biography</option>
+                		<option value = 21>Food & Drink</option>
+                		<option value = 22>Art & Photography</option>
+                		<option value = 23>Self-help</option>
+                		<option value = 24>History</option>
+                		<option value = 25>Travel</option>
+                		<option value = 26>True Crime</option>
+                		<option value = 27>Humor</option>
+                		<option value = 28>Essays</option>
+                		<option value = 29>Guide/How-to</option>
+                		<option value = 30>Religion & Spiritual</option>
+                		<option value = 31>Science & Technology</option>
+                		<option value = 32>Children's Education</option>
+                		<option value = 33>Humanities & Social Sciences</option>
+                		<option value = 34>Parenting & Families</option>
+                	</select>
+              </div>
+              <div class="submit">
+              	<input type="button" value="Search" id="submit">
+              </div>
+              
+              
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>BookId</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Quantity</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        	
+            <script type="text/javascript">
+                var sql_num = 0;
+                $(document).ready(function() {
+                	var $form = $('#submit');
+                	$form.click(function() {
+                		
+                		getAllMember();
+                    });
+                });
+               
+
+                function getAllMember() {
+                    $.ajax({
+                            type: "GET",
+                            url: "api/product.do",
+                            crossDomain: true,
+                            cache: false,
+                            dataType: 'json',
+                            timeout: 5000,
+                            
+                            success: function (response) {
+                                if(response.status == 200){
+                                    updateTable(response.response.data);
+                                    updateSQLTable(response.response);
+                                }
+                                console.log(response);
+                            },
+                            error: function () {
+                                alert("Cannot connect to server");
+                            }
+                    });
+                }
+                
+                function updateTable(data) {
+                	var myselection = $('#book_categoryid option:selected').val();
+                	
+                    $("#table > tbody").empty();
+                    var table_html = '';
+                    $.each(data, function(index, value) { 
+                    	
+                    	if(myselection == value['categoryId']){
+                        table_html += '<tr><td scope="row">' + value['id'] + '</td>';
+                        table_html += '<td>' + value['title'] + '</td>';
+                        table_html += '<td>' + value['author'] + '</td>';
+                        table_html += '<td>' + value['publisher'] + '</td>';
+                        table_html += '<td>' + value['quantity'] + '</td>';           
+                        table_html += '<td>' + '<a href="BookEdit.html?id=' + value['id'] + '">EDIT</a> | ';
+                        table_html += '<a href="javascript: deleteMember(' + value['id'] + ');">DELETE</a></td></tr>';   
+                       }  
+                    })
+                    $("#table > tbody").append(table_html);
+                }
+                
+ 				function deleteMember(id) {
+                	
+                    var check = window.confirm("Are you sure want to delete this book ?");
+                   
+                    if (check == true) {
+                        console.log("You pressed OK!");
+                        var request = {'bookId': id};
+                        var data_string = JSON.stringify(request);
+                        $.ajax({
+                            type: "DELETE",
+                            url: "api/product.do",
+                            crossDomain: true,
+                            data: data_string,
+                            cache: false,
+                            dataType: 'json',
+                            timeout: 5000,
+                            success: function (response) {
+                                if(response.status == 200){
+                                    $("#flashMessage").html("Success, the selected book has been deleted ...");
+                                    $("#flashMessage").show();
+                                    getAllMember();
+                                }
+                                console.log(response);
+                            },
+                            error: function () {
+                                alert("Cannot connect to server");
+                            }
+                        });
+                    }
+                    else {
+                        console.log("You pressed Cancel!");
+                    }
+                }
+                
+                function updateSQLTable(data) {
+                    $("#sql_log > tbody").empty();
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+                    
+                    sql_num = 0;
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+             
+                
+            </script>
+      
+        </div></div>
+</body>
+
+</html>

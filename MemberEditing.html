@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Library Administration and Member Update System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyEditing.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<body>
+   <div id="content">
+	<div class = "header">
+	<p class = "title-header">Library Management System </p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>     
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+  </ul>
+</nav>
+		
+     
+            <h2>Library Member Update System</h2>
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+
+            <form id="form" accept-charset="utf-8">
+                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+         	<div class="input userid required">
+                    <label for="member_userid">User Id</label>
+                    <input name="userid" type="number" id="member_userid" required="required" disabled>
+                </div>
+                <div class="input text required">
+                    <label for="member_name">Name</label>
+                    <input name="name" maxlength="50" type="text" id="member_name" required="required">
+                </div>
+                <div class="input password required">
+                    <label for="member_password">Password</label>
+                    <input name="password" type="password" id="member_password" required="required">
+                </div>
+                <div class="input confirmpassword required">
+                    <label for="member_confirmpassword">Confirm Password</label>
+                    <input name="confirmpassword" type="password" id="member_confirmpassword" required="required">
+                </div>
+                <div class="input email required">
+                    <label for="member_email">Email</label>
+                    <input name="email" maxlength="50" type="email" id="member_email" required="required" disabled>
+                </div>
+                 <div class="input telpnum required">
+                    <label for="member_telpnum">Telephone Number</label>
+                    <input name="telpnum" maxlength="10" type="text" id="member_telpnum" required="required">
+                </div>
+                <div class="input text">
+                    <label for="member_status">Status</label>
+                    <input name="status" type="text" id="member_status" disabled>
+                </div>
+                <div class="submit"><input type="button" value="Change Information" id="submit"></div>
+            </form>
+
+            <script type="text/javascript">
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var id = url.searchParams.get("id");
+                var sql_num = 0;
+
+                function updateMember(id) {
+                    var name = $('#member_name').val();
+                    var password = $('#member_password').val();
+                    var confirmpassword = $('#member_confirmpassword').val();
+                    var email = $('#member_email').val();
+                    var numtelp = $('#member_telpnum').val();
+                    var status = $('#member_status').val();
+                    
+                    
+                    if (status == "Administration"){
+                    	statusid = 1;
+                    }else if (status == "Student/Teacher"){
+                    	statusid = 2;
+                    }else if (status == "Outside User"){
+                    	statusid = 3;
+                    }
+                    
+                    var password_rule = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                    var telpnum_rule = /((?=(09))[0-9]{10})$/g;
+
+                    if(!password_rule.test(password)) {
+                        alert("Password doesn't match with regulation...");
+                    }
+                    else if(password != confirmpassword){
+                     alert("pasword and confirm password don't match...");
+                    }
+                    else if(!telpnum_rule.test(numtelp)){
+                     alert("Telphone number must use Taiwan's format...");
+                    }
+                    else {
+                        var data_object = {
+                        		"id": id,
+                        		"name": name,
+                                "email": email,
+                                "password": password,
+                                "numtelp" : numtelp,
+                                "statusid" : statusid
+                        };
+
+                        var data_string = JSON.stringify(data_object);
+                        $.ajax({
+                                type: "PUT",
+                                url: "api/member.do",
+                                data: data_string,
+                                crossDomain: true,
+                                cache: false,
+                                dataType: 'json',
+                                timeout: 5000,
+                                success: function (response) {
+                                    $('#flashMessage').html(response.message);
+                                    $('#flashMessage').show();
+                                    if(response.status == 200){
+                                        updateSQLTable(response.response);
+                                        getMember();
+                                    }
+                                },
+                                error: function () {
+                                    alert("Cannot connect to server");
+                                }
+                        });
+                    }
+                }
+
+                function updateSQLTable(data) {
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+                    
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+
+                function getMember() {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/member.do",
+                        crossDomain: true,
+                        data: "id=" + id,
+                        cache: false,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function (response) {
+                            if(response.status == 200){
+                            	updateSQLTable(response.response);
+                            	document.getElementById('member_userid').value = response['response']['data'][0]['id'];
+                            	document.getElementById('member_name').value = response['response']['data'][0]['name'];
+                            	document.getElementById('member_password').value = response['response']['data'][0]['password'];
+                            	document.getElementById('member_confirmpassword').value = response['response']['data'][0]['password'];
+                            	document.getElementById('member_email').value = response['response']['data'][0]['email'];
+                            	document.getElementById('member_telpnum').value = response['response']['data'][0]['numtelp'];
+                            	if(response['response']['data'][0]['statusid'] == 1){
+                            		document.getElementById('member_status').value = "Administration";
+                            	}else if(response['response']['data'][0]['statusid'] == 2){
+                            		document.getElementById('member_status').value = "Student/Teacher";
+                            	}if(response['response']['data'][0]['statusid'] == 3){
+                            		document.getElementById('member_status').value = "Outside User";
+                            	}
+                            }
+                            console.log(response);
+                        },
+                        error: function () {
+                            alert("Cannot connect to server");
+                        }
+                    });
+                }
+
+                $('#submit').click(function() {
+                    updateMember(id)
+                });
+                
+                $(document).ready(function() {
+                 	$("#sql_log > tbody").empty();
+                    getMember();
+                });
+            </script>
+        </div>
+     
+</body>
+
+</html>

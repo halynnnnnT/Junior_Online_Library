@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>New Book Recording System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyAdding.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+		<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Root.html" style = 'padding-left: 20px;color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>
+
+<div id="container">
+ 	     <div id="content">
+            <h2>New Book Recording System</h2>
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+
+            <form id="form" accept-charset="utf-8">
+                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                <div class="input title required">
+                    <label for="book_title">Book Title</label>
+                    <input name="title" maxlength="255" type="text" id="book_title" required="required" placeholder = "Please Input a Book Title">
+                </div>
+
+                <div class="input author required">
+                    <label for="book_author">Book Author</label>
+                    <input name="author" maxlength="100" type="text" id="book_author" required="required" placeholder = "Please Input a Book Author">
+                </div>
+
+                <div class="input publisher required">
+                    <label for="book_publisher">Book Publisher</label>
+                    <input name="publisher" maxlength="100" type="text" id="book_publisher" required="required" placeholder = "Please Input a Book Publisher">
+                </div>
+
+                <div class="input language required">
+                    <label for="book_language">Book Language</label>
+                    <input name="language" maxlength="50" type="text" id="book_language" required="required" placeholder = "Please Input a Book Language, Ex: Indonesian">
+                </div>
+
+                <div class="input edition required">
+                    <label for="book_edition">Book Edition</label>
+                    <input name="edition" min="0" type="number" id="book_edition" required="required" placeholder = "Please Input a Book Edition, Ex: 29">
+                </div>
+
+                 <div class="input dateissued required">
+                    <label for="book_dateissued">Book Date Issued</label>
+                    <input name="dateissued" type="date" id="book_dateissued" required="required">
+                </div>
+
+                 <div class="input image required">
+                    <label for="book_image">Book Image Address</label>
+                    <input name="image" maxlength="255" type="text" id="book_image" required="required" placeholder = "Ex: https://tse4.mm.bing.net/th?id=OIP.TUZxSRMq6m2pqs9UId34LAHaEo&pid=Api&P=0&w=271&h=169">
+                </div>
+
+                 <div class="input description required">
+                    <label for="book_description">Book Description</label>
+                    <input name="description" maxlength="255" type="text" id="book_description" required="required" placeholder = "Please Input a Book Synopsis, Max 255 Length">
+                </div>
+
+                 <div class="input rating required">
+                    <label for="book_rating">Book Rating</label>
+                    <input name="rating" maxlength="15" type="number" min = 0 id="book_rating" required="required" placeholder = "Please Input a Book Rating, Max 4.9, Ex: 2.9 or 3.0">
+                </div>
+
+                 <div class="input quantity required">
+                    <label for="book_quantity">Book Quantity</label>
+                    <input name="quantity" maxlength="15" type="number" min = 0 id="book_quantity" required="required" placeholder = "Please Input a Book Quantity, Ex: 5">
+                </div>
+
+                <div class="input categoryid required">
+                	<label for="book_categoryid">Book Category</label>
+                	<select name="categoryid" id="book_categoryid">
+                		<option value = 1>Fantasy</option>
+                		<option value = 2>Science Fiction</option>
+                		<option value = 3>Action & Adventure</option>
+                		<option value = 4>Mystery</option>
+                		<option value = 5>Horror</option>
+                		<option value = 6>Thriller & Suspense</option>
+                		<option value = 7>Historical Fiction</option>
+                		<option value = 8>Romance</option>
+                		<option value = 9>Women's Fiction</option>
+                		<option value = 10>LGBTQ+</option>
+                		<option value = 11>Contemporary Fiction</option>
+                		<option value = 12>Literary Fiction</option>
+                		<option value = 13>Magical Realism</option>
+                		<option value = 14>Graphic Novel</option>
+                		<option value = 15>Short Story</option>
+                		<option value = 16>Young Adult</option>
+                		<option value = 17>New Adult</option>
+                		<option value = 18>Children's</option>
+                		<option value = 19>Memoir & Autobiography</option>
+                		<option value = 20>Biography</option>
+                		<option value = 21>Food & Drink</option>
+                		<option value = 22>Art & Photography</option>
+                		<option value = 23>Self-help</option>
+                		<option value = 24>History</option>
+                		<option value = 25>Travel</option>
+                		<option value = 26>True Crime</option>
+                		<option value = 27>Humor</option>
+                		<option value = 28>Essays</option>
+                		<option value = 29>Guide/How-to</option>
+                		<option value = 30>Religion & Spiritual</option>
+                		<option value = 31>Science & Technology</option>
+                		<option value = 32>Children's</option>
+                		<option value = 33>Humanities & Social Sciences</option>
+                		<option value = 34>Parenting & Families</option>
+                	</select>
+                </div>
+                <div class="submit"><input type="button" value="Adding Book" id="submit"></div>
+            </form>
+             <script type="text/javascript">
+                $(document).ready(function() {
+                    var $form = $('#submit');
+                    $form.click(function() {
+                        submit();
+                    });
+
+                    function submit() {
+                        var title = $('#book_title').val();
+                        var author = $('#book_author').val();
+                        var publisher = $('#book_publisher').val();
+                        var language = $('#book_language').val();
+                        var edition = $('#book_edition').val();
+                        var dateIssued = $('#book_dateissued').val();
+                        var image = $('#book_image').val();
+                        var description = $('#book_description').val();
+                        var rating = $('#book_rating').val();
+                        var quantity = $('#book_quantity').val();
+                        var categoryId = $('#book_categoryid option:selected').val();
+
+                        var rating_rule = /^(?:[1-4]\d{0,0}|0)\.\d$/;
+                        var quantity_rule = /^[0-9]+$/;
+                        var image_rule = /^(ftp|http|https):\/\/[^ "]+$/;
+
+                        if (!rating_rule.test(rating)) {
+                            alert("Rating must be one decimal place number and smaller than 5.0");
+                        }
+
+                        else if (!quantity_rule.test(quantity)) {
+                            alert("Quantity must be integer and nonegative number");
+                        }
+
+                        else if (!quantity_rule.test(edition)) {
+                            alert("Edition must be integer and nonegative number");
+                        }
+
+                        else if(!image_rule.test(image)){
+                        	alert("Image must be URL address");
+                        }
+
+                        else {
+                            var data_object = {
+                                "title": title,
+                                "author": author,
+                                "publisher": publisher,
+                                "language": language,
+                                "edition": edition,
+                                "dateIssued": dateIssued,
+                                "image": image,
+                                "description": description,
+                                "rating": rating,
+                                "quantity": quantity,
+                                "categoryId": categoryId
+                            };
+
+                            var data_string = JSON.stringify(data_object);
+
+                            $.ajax({
+                                    type: "POST",
+                                    url: "api/product.do",
+                                    data: data_string,
+                                    crossDomain: true,
+                                    cache: false,
+                                    dataType: 'json',
+                                    timeout: 5000,
+                                    success: function (response) {
+                                        $('#flashMessage').html(response.message);
+                                        $('#flashMessage').show();
+                                        if(response.status == 200){
+                                            updateSQLTable(response.response);
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("Cannot connect to server");
+                                    }
+                            });
+                        }
+                    }
+                   	    function updateSQLTable(data) {
+                        $("#sql_log > tbody").empty();
+                        var time = (data.time / 1000000).toFixed(2);
+                        var table_html = "";
+
+                        table_html += '<tr>';
+                        table_html += '<td>' + '1' + '</td>';
+                        table_html += '<td>' + data.sql + '</td>';
+                        table_html += '<td style="text-align: right">' + '0' + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + time + '</td>';
+                        table_html += '</tr>';
+                        $("#sql_log > tbody").append(table_html);
+                        $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                    }
+                });
+         </script>
+      </div></div>
+  </html>

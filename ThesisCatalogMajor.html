@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Thesis Catalog</title>
+  <link href="statics/css/MySearch.css" rel="stylesheet">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+  <script src="statics/js/jquery-3.4.1.min.js"></script>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+	
+		<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Root.html" style = 'padding-left: 40px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>     
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>
+
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Thesis Catalog</h1>
+    <p class="lead">" Education is the most powerful weapon which you can use to change the world "</p>
+  </div>
+  
+   <div class="input majorid required">
+                	<label for="thesis_majorid">Select thesis major to get a knowledge</label>
+                	<select name="majorid" id="thesis_majorid">
+                		<option value = 1>Liberal Arts</option>
+                		<option value = 2>Science</option>
+                		<option value = 3>Engineering</option>
+                		<option value = 4>Management</option>
+                		<option value = 5>Electrical Engineering & Computer Science</option>
+                		<option value = 6>Earth Sciences</option>
+                		<option value = 7>HAKKA Studies</option>
+                		<option value = 8>Health Sciences & Technology</option>
+                		<option value = 9>Space and Remote Sensing Research</option>
+                	</select>
+                </div>
+   
+   <div class="submit">
+        <input type="button" value="Explore Thesis" id="submit">
+   </div>
+
+   <div class="album py-5 bg-light">
+     <div class="container">
+       <div id="product_panel" class="row">
+       </div>
+     </div>
+   </div>
+
+  <script>   
+   
+    $(document).ready(function() {
+    	var $form = $('#submit');
+    	$form.click(function() {
+    		$("#product_panel").empty();
+    		getAllProduct(); 
+        });
+    });
+    
+    function getAllProduct() {
+      $.ajax({
+        type: "GET",
+        url: "api/product2.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+          var product_panel = '';
+          if (response.status == 200) {
+        	$.each(response.response.data, function (){
+        		var myselection =  $('#thesis_majorid option:selected').val();
+        		if (myselection == this.majorId){
+        		product_panel += addProduct(this);
+        		}
+        	})
+        	$("#product_panel").append(product_panel);
+          }
+        },
+        error: function () {
+          alert("Cannot Connect to Server");
+        }
+      });
+    }
+    
+    function addProduct(data) {
+    	let inner_html = '';
+    	inner_html += '<div class="col-md-4">';
+   		inner_html += '<div class="card-header">';
+   		inner_html += '<h5 class="font-weight-normal text-center text-truncate">' + data.title + '</h5>';
+ 		inner_html += '</div>';
+ 		inner_html += '<div class="card mb-4 shadow-sm">';
+ 		inner_html += '<img src="' + data.image + '" width="100%">';
+		inner_html += '<div class="card-body">';
+		inner_html += '<label class="card-text">Thesis Id &nbsp;&nbsp;   : <b>' + data.id + '</b></label><br>';
+		inner_html += '<label class="card-text">University &nbsp;: <b>' + data.university + '</b></label><br>';
+		inner_html += '<label class="card-text">Author &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  : <b>' + data.author + '</b></label><br>';
+		inner_html += '<label class="card-text">Professor &nbsp;  : <b>' + data.professor + '</b></label><br>';
+		inner_html += '<label class="card-text">Date Finished : <b>' + data.dateFinished + '</b></label><br>';
+		inner_html += '<label class="card-text">Final Score      : <b>' + data.finalScore + '</b></label><br>';
+		inner_html += '<p class="card-text"><b>' + data.description + '</b></p>';
+		inner_html += '<div class="d-flex justify-content-between align-items-center">';
+		inner_html += '<small class="text-muted">Available Now : ' + data.availableStatus + '</small>';
+		inner_html += '</div></div></div></div>';
+
+		return inner_html;
+    	
+    }
+    
+  </script>
+
+</body>
+
+</html>

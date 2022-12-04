@@ -1,0 +1,393 @@
+html {
+  height: 100%;
+  background-color: #F8F8FF;
+background-image: url("");
+ background-repeat: repeat-y;
+background-size: 100%;
+
+}
+
+body {
+
+height: 100%;
+
+width: 100%;
+
+margin: 0 auto;
+
+font-family: 'Roboto', sans-serif;
+
+color: black;
+}
+
+nav {
+  display: block;
+  text-align:;
+}
+nav ul {
+  margin: 0;
+  padding:0;
+  list-style: none;
+}
+.nav a {
+  display:block;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.8em 1.8em;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-shadow: 0 -1px 0 #000;
+  position: relative;
+  font-family: Optima, sans-serif;
+}
+.nav{
+  vertical-align: top;
+  display: inline-block;
+  box-shadow:
+    1px -1px -1px 1px #000,
+    -1px 1px -1px 1px #fff,
+    0 0 6px 3px #68a3bf;
+  border-radius:6px;
+}
+.nav li {
+  position: relative;
+}
+.nav > li {
+  float: left;
+  border-bottom: 4px #aaa solid;
+  margin-right: 1px;
+}
+.nav > li > a {
+  margin-bottom: 1px;
+  box-shadow: inset 0 2em .33em -0.5em #000;
+}
+.nav > li:hover,
+.nav > li:hover > a {
+  border-bottom-color: #68a3bf;
+}
+.nav li:hover > a {
+  color:#68a3bf;
+}
+.nav > li:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.nav > li:first-child > a {
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child {
+  border-radius: 0 0 4px 0;
+  margin-right: 0;
+}
+.nav > li:last-child > a {
+  border-radius: 0 4px 0 0;
+}
+.nav li li a {
+  margin-top: 1px;
+}
+
+.nav li a:first-child:nth-last-child(2):before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: 5px solid transparent;
+  top: 50% ;
+  right:5px;
+ }
+
+ .nav ul {
+  position: absolute;
+  white-space: nowrap;
+  border-bottom: 5px solid  #68a3bf;
+  z-index: 1;
+  left: -99999em;
+}
+.nav > li:hover > ul {
+  left: auto;
+  margin-top: 5px;a
+  min-width: 100%;
+}
+.nav > li li:hover > ul {
+  left: 100%;
+  margin-left: 1px;
+  top: -1px;
+}
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before {
+  border-top-color: #aaa;
+}
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-bottom-color: #68a3bf;
+  margin-top:-5px
+}
+.nav li li > a:first-child:nth-last-child(2):before {
+  border-left-color: #68a3bf;
+  margin-top: -5px
+}
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-right-color: #68a3bf;
+  right: 10px;
+}
+
+.header{
+	background-color: #E0E0E0;
+	height: 180px;
+	background-image : url("https://www.madagascarislandsafaris.co.za/wp-content/uploads/2017/08/Travel-Blog-Header-1600x400.jpg");
+	background-size : 100%;
+
+}
+
+.title-header{
+	padding-top: 20px;
+	font-size: 50px;
+	font-family: 'Courier New', monospace;
+	font-weight: bold;
+	margin-left: 40px;
+}
+
+#flashMessage {
+	background-color : #DBF3FA;
+	height: 30px;
+	width:87%;
+	padding-left: 35px;
+	padding-top: 8px;
+	size: 16px;
+	margin-left: 60px;
+	margin-bottom: 10px;
+}
+
+.container1{
+ margin-top:10px;
+ width: 80%;
+ height: 60%;
+ left: 10%;
+ right: 10%;
+ position: absolute;
+}
+.container2{
+ background-image: url('http://rhonaimagery.com/wp-content/uploads/2016/07/ThinkstockPhotos-513295798.jpg');
+ background-repeat : no-repeat;
+ background-size : 100%;
+ width: 30%;
+ height: 100%;
+ left: 0%;
+ float: left;
+ position: absolute;
+}
+.container3{
+ background-color: #ceeae073;
+ margin-left: 30%;
+ width: 70%;
+ height: 100%;
+ float: right;
+ position: absolute;
+}
+
+h1{
+ font-size: 36px;
+ margin-left: 50px;
+ font-family: Marker Felt, fantasy;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px 0 #fff, 5px 5px 0 #dfe8f1;
+  display: flex;
+  color: #33342e;
+}
+
+.mymember{
+ margin-top: 100px;
+ margin-left: 50px;
+ font-size: 16px;
+}
+
+.mymember1{
+ margin-left: 110px;
+ font-size: 16px;
+ margin-top: 10px;
+ width: 400px;
+}
+
+.myemail{
+ margin-top: 100px;
+ margin-left: 50px;
+ font-size: 16px;
+}
+
+.myemail1{
+ margin-left: 113px;
+ font-size: 16px;
+ margin-top: 10px;
+ width: 400px;
+}
+
+.mypassword{
+ margin-top: 100px;
+ margin-left: 50px;
+ font-size: 16px;
+}
+
+.mypassword1{
+ margin-left: 82px;
+ font-size: 16px;
+ margin-top: 10px;
+ width: 400px;
+}
+
+.myrequiredpassword{
+ margin-top: 100px;
+ margin-left: 50px;
+ font-size: 16px;
+}
+
+.myrequiredpassword1{
+ margin-left: 22px;
+ font-size: 16px;
+ margin-top: 10px;
+ width: 400px;
+}
+
+.mytelpnum{
+ margin-top: 100px;
+ margin-left: 50px;
+ font-size: 16px;
+}
+
+.mytelpnum1{
+ margin-left: 18px;
+ font-size: 16px;
+ margin-top: 10px;
+ width: 400px;
+}
+
+.mystatusid{
+ margin-top: 100px;
+ margin-left: 50px;
+ font-size: 16px;
+}
+
+.mystatusid1{
+ margin-left: 16px;
+ font-size: 16px;
+ margin-top: 10px;
+ width: 180px;
+ height: 20px;
+}
+
+#header{
+ width: 100%;
+ height: 80px;
+ background-color: #807182;
+}
+
+.title{
+ font-size: 50px;
+ color: white;
+ opacity: 0.8;
+ margin-left: 20px;
+ padding-top: 10px;
+ position: absolute;
+}
+
+#submit{
+   float: right;
+   margin-top: 0px;
+   margin-right: 5%;
+   width: 100px;
+   height: 30px;
+   background-color: #c5c5c5;
+   font-size: 16px;
+   border-radius: 16px;
+   color:#
+}
+
+
+.navbar {
+  overflow: hidden;
+  background-color: #68a3bf;
+  font-family: Arial;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.veri:link{
+ margin-top: 200px;
+ margin-left: 50px;
+ font-size: 16px;
+ color: blue;
+}
+.veri:hover{
+ margin-top: 200px;
+ margin-left: 50px;
+ font-size: 16px;
+ color: pink;
+}
+
+.below{
+ margin-top: 600px;
+ background-color: black;
+ height: 200px;
+ color: white;
+
+}
+
+.message{
+ background-color: white;
+ font: 24px;
+}

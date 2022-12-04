@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>New DVD Recording System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyAdding.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+</head>
+
+				<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Admin.html" style = 'padding-left: 20px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement2.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement2.html">Member Management</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory2.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch2.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre2.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch2.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor2.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch2.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording2.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording2.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording2.html">New Thesis Adding</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement2.html">Book Managements</a></li>
+        <li><a href="DVDManagement2.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement2.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>
+
+<div id="container">
+ 	     <div id="content">
+            <h2>New DVD Recording System</h2>
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+
+            <form id="form" accept-charset="utf-8">
+                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                <div class="input title required">
+                    <label for="dvd_title">DVD Title</label>
+                    <input name="title" maxlength="255" type="text" id="dvd_title" required="required" placeholder = "Please Input a DVD Title">
+                </div>
+
+                <div class="input director required">
+                    <label for="dvd_director">DVD Director</label>
+                    <input name="director" maxlength="100" type="text" id="dvd_director" required="required" placeholder = "Please Input a DVD Director">
+                </div>
+
+                <div class="input publisher required">
+                    <label for="dvd_publisher">DVD Publisher</label>
+                    <input name="publisher" maxlength="100" type="text" id="dvd_publisher" required="required" placeholder = "Please Input a DVD Publisher">
+                </div>
+
+                 <div class="input dateissued required">
+                    <label for="dvd_dateissued">DVD Date Issued</label>
+                    <input name="dateissued" type="date" id="dvd_dateissued" required="required">
+                </div>
+
+                 <div class="input image required">
+                    <label for="dvd_image">DVD Image Address</label>
+                    <input name="image" maxlength="255" type="text" id="dvd_image" required="required" placeholder = "Ex: https://tse4.mm.bing.net/th?id=OIP.TUZxSRMq6m2pqs9UId34LAHaEo&pid=Api&P=0&w=271&h=169">
+                </div>
+
+                 <div class="input description required">
+                    <label for="dvd_description">DVD Description</label>
+                    <input name="description" maxlength="255" type="text" id="dvd_description" required="required" placeholder = "Please Input a Movie Synopsis, Max 255 Length">
+                </div>
+
+                 <div class="input rating required">
+                    <label for="dvd_rating">DVD Rating</label>
+                    <input name="rating" maxlength="15" type="number" min = 0 id="dvd_rating" required="required" placeholder = "Please Input a Movie Rating, Max 4.9, Ex: 2.9 or 3.0">
+                </div>
+
+                 <div class="input quantity required">
+                    <label for="dvd_quantity">DVD Quantity</label>
+                    <input name="quantity" maxlength="15" type="number" min = 0 id="dvd_quantity" required="required" placeholder = "Please Input a DVD Quantity, Ex: 5">
+                </div>
+
+                <div class="input genreid required">
+                	<label for="dvd_genreid">DVD Genre</label>
+                	<select name="genreid" id="dvd_genreid">
+                		<option value = 1>Animation</option>
+                		<option value = 2>Action</option>
+                		<option value = 3>Adventure</option>
+                		<option value = 4>Biography</option>
+                		<option value = 5>Comedy</option>
+                		<option value = 6>Crime</option>
+                		<option value = 7>Drama</option>
+                		<option value = 8>Documentary</option>
+                		<option value = 9>Fantasy</option>
+                		<option value = 10>Historical</option>
+                		<option value = 11>Horror</option>
+                		<option value = 12>Musical</option>
+                		<option value = 13>Mystery</option>
+                		<option value = 14>Romance</option>
+                		<option value = 15>Science Fiction</option>
+                		<option value = 16>Thriller</option>
+                		<option value = 17>War</option>
+                		<option value = 18>Western</option>
+                	</select>
+                </div>
+                <div class="submit"><input type="button" value="Adding DVD" id="submit"></div>
+            </form>
+             <script type="text/javascript">
+                $(document).ready(function() {
+                    var $form = $('#submit');
+                    $form.click(function() {
+                        submit();
+                    });
+
+                    function submit() {
+                        var title = $('#dvd_title').val();
+                        var director = $('#dvd_director').val();
+                        var publisher = $('#dvd_publisher').val();
+                        var releaseDate = $('#dvd_dateissued').val();
+                        var image = $('#dvd_image').val();
+                        var description = $('#dvd_description').val();
+                        var rating = $('#dvd_rating').val();
+                        var quantity = $('#dvd_quantity').val();
+                        var genreId = $('#dvd_genreid option:selected').val();
+
+                        var rating_rule = /^(?:[1-4]\d{0,0}|0)\.\d$/;
+                        var quantity_rule = /^[0-9]+$/;
+                        var image_rule = /^(ftp|http|https):\/\/[^ "]+$/;
+
+                        if (!rating_rule.test(rating)) {
+                            alert("Rating must be one decimal place number and smaller than 5.0");
+                        }
+
+                        else if (!quantity_rule.test(quantity)) {
+                            alert("Quantity must be integer and nonegative number");
+                        }
+
+                        else if(!image_rule.test(image)){
+                        	alert("Image must be URL address");
+                        }
+
+                        else {
+                            var data_object = {
+                                "title": title,
+                                "director": director,
+                                "publisher": publisher,
+                                "releaseDate": releaseDate,
+                                "image": image,
+                                "description": description,
+                                "rating": rating,
+                                "quantity": quantity,
+                                "genreId": genreId
+                            };
+
+                            var data_string = JSON.stringify(data_object);
+
+                            $.ajax({
+                                    type: "POST",
+                                    url: "api/product1.do",
+                                    data: data_string,
+                                    crossDomain: true,
+                                    cache: false,
+                                    dataType: 'json',
+                                    timeout: 5000,
+                                    success: function (response) {
+                                        $('#flashMessage').html(response.message);
+                                        $('#flashMessage').show();
+                                        if(response.status == 200){
+                                            updateSQLTable(response.response);
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("Cannot connect to server");
+                                    }
+                            });
+                        }
+                    }
+                   	    function updateSQLTable(data) {
+                        $("#sql_log > tbody").empty();
+                        var time = (data.time / 1000000).toFixed(2);
+                        var table_html = "";
+
+                        table_html += '<tr>';
+                        table_html += '<td>' + '1' + '</td>';
+                        table_html += '<td>' + data.sql + '</td>';
+                        table_html += '<td style="text-align: right">' + '0' + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + time + '</td>';
+                        table_html += '</tr>';
+                        $("#sql_log > tbody").append(table_html);
+                        $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                    }
+                });
+         </script>
+      </div></div>
+  </html>

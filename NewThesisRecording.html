@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>New Thesis Recording System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyAdding.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+</head>
+
+			<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Root.html" style = 'padding-left: 20px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>
+
+<div id="container">
+ 	     <div id="content">
+            <h2>New Thesis Recording System</h2>
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+
+            <form id="form" accept-charset="utf-8">
+                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                <div class="input title required">
+                    <label for="thesis_title">Thesis Title</label>
+                    <input name="title" maxlength="255" type="text" id="thesis_title" required="required" placeholder = "Please Input a Thesis Title">
+                </div>
+
+                <div class="input university required">
+                    <label for="thesis_university">Thesis University</label>
+                    <input name="university" maxlength="100" type="text" id="thesis_university" required="required" placeholder = "Please Input a Thesis University">
+                </div>
+
+                <div class="input author required">
+                    <label for="thesis_author">Thesis Author</label>
+                    <input name="author" maxlength="100" type="text" id="thesis_author" required="required" placeholder = "Please Input a Thesis Author">
+                </div>
+
+                <div class="input professor required">
+                    <label for="thesis_professor">Thesis Professor</label>
+                    <input name="professor" maxlength="100" type="text" id="thesis_professor" required="required" placeholder = "Please Input a Thesis Professor ">
+                </div>
+
+                 <div class="input datefinished required">
+                    <label for="thesis_datefinished">Thesis Date Finished</label>
+                    <input name="datefinished" type="date" id="thesis_datefinished" required="required">
+                </div>
+
+                 <div class="input image required">
+                    <label for="thesis_image">Thesis Image Address</label>
+                    <input name="image" maxlength="255" type="text" id="thesis_image" required="required" placeholder = "Ex: https://tse4.mm.bing.net/th?id=OIP.TUZxSRMq6m2pqs9UId34LAHaEo&pid=Api&P=0&w=271&h=169">
+                </div>
+
+                 <div class="input description required">
+                    <label for="thesis_description">Thesis Description</label>
+                    <input name="description" maxlength="255" type="text" id="thesis_description" required="required" placeholder = "Please Input a Thesis Summary, Max 255 Length">
+                </div>
+
+                 <div class="input finalscore required">
+                    <label for="thesis_finalscore">Thesis Final Score</label>
+                    <input name="finalscore" maxlength="15" type="number" min = 0 id="thesis_finalscore" required="required" placeholder = "Please Input a final score, Max 100 and Cannot Decimal, Ex: 60 or 87">
+                </div>
+
+                <div class="input majorid required">
+                	<label for="thesis_majorid">Thesis Major</label>
+                	<select name="majorid" id="thesis_majorid">
+                		<option value = 1>Liberal Arts</option>
+                		<option value = 2>Science</option>
+                		<option value = 3>Engineering</option>
+                		<option value = 4>Management</option>
+                		<option value = 5>Electrical Engineering & Computer Science</option>
+                		<option value = 6>Earth Sciences</option>
+                		<option value = 7>HAKKA Studies</option>
+                		<option value = 8>Health Sciences & Technology</option>
+                		<option value = 9>Space and Remote Sensing Research</option>
+                	</select>
+                </div>
+                <div class="submit"><input type="button" value="Adding Thesis" id="submit"></div>
+            </form>
+             <script type="text/javascript">
+                $(document).ready(function() {
+                    var $form = $('#submit');
+                    $form.click(function() {
+                        submit();
+                    });
+
+                    function submit() {
+
+                        var title = $('#thesis_title').val();
+                        var university = $('#thesis_university').val();
+                        var author = $('#thesis_author').val();
+                        var professor = $('#thesis_professor').val();
+                        var dateFinished = $('#thesis_datefinished').val();
+                        var image = $('#thesis_image').val();
+                        var description = $('#thesis_description').val();
+                        var finalScore = $('#thesis_finalscore').val();
+                        var majorId = $('#thesis_majorid option:selected').val();
+
+                        var score_rule = /^([0-9]?\d|100)$/;
+                        var image_rule = /^(ftp|http|https):\/\/[^ "]+$/;
+
+
+                        if (!score_rule.test(finalScore)) {
+                            alert("Final score must be equal or between 0 to 100");
+                        }
+
+                        else if(!image_rule.test(image)){
+                        	alert("Image must be URL address");
+                        }
+
+                        else {
+                            var data_object = {
+                                "title": title,
+                                "university": university,
+                                "author": author,
+                                "professor": professor,
+                                "dateFinished": dateFinished,
+                                "image": image,
+                                "description": description,
+                                "finalScore": finalScore,
+                                "majorId": majorId
+                            };
+
+                            var data_string = JSON.stringify(data_object);
+
+                            $.ajax({
+                                    type: "POST",
+                                    url: "api/product2.do",
+                                    data: data_string,
+                                    crossDomain: true,
+                                    cache: false,
+                                    dataType: 'json',
+                                    timeout: 5000,
+                                    success: function (response) {
+                                        $('#flashMessage').html(response.message);
+                                        $('#flashMessage').show();
+                                        if(response.status == 200){
+                                            updateSQLTable(response.response);
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("Cannot connect to server");
+                                    }
+                            });
+                        }
+                    }
+                   	    function updateSQLTable(data) {
+                        $("#sql_log > tbody").empty();
+                        var time = (data.time / 1000000).toFixed(2);
+                        var table_html = "";
+
+                        table_html += '<tr>';
+                        table_html += '<td>' + '1' + '</td>';
+                        table_html += '<td>' + data.sql + '</td>';
+                        table_html += '<td style="text-align: right">' + '0' + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + time + '</td>';
+                        table_html += '</tr>';
+                        $("#sql_log > tbody").append(table_html);
+                        $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                    }
+                });
+         </script>
+      </div></div>
+  </html>

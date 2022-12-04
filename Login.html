@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Library Login</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+ <link rel="stylesheet" type="text/css" href="statics/css/MyLogin.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+ <div class = "header">
+	<p class = "title-header">Library Management System </p>
+</div>
+<nav>
+  <ul class="nav">   
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory4.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch4.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre4.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch4.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor4.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch4.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberRegister.html">Registration</a>
+    </li>
+     <li><a href="#">Login</a>
+    </li>
+
+  </ul>
+</nav>
+        
+        <div id="content">
+            
+   
+            <form id="form" accept-charset="utf-8">
+                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                <div class = "container1">
+                <div class = "container2"></div>
+                <div class = "container3">
+                <h1>To Start The Exploration, LOGIN</h1>
+                <div class="input email required">
+                    <label for="member_id" class ="myemail">MemberId</label>
+                    <input name="id" type="number" id="member_id" class ="mypassword1" required="required">
+                </div>
+                <div class="input email required">
+                    <label for="member_email" class ="myemail">Email</label>
+                    <input name="email" maxlength="50" type="email" id="member_email" class ="myemail1" required="required">
+                </div>
+                <div class="input password required">
+                    <label for="member_password" class ="mypassword">Password</label>
+                    <input name="password" maxlength="30" type="password" id="member_password" class ="mypassword1" required="required">
+                </div>
+                <div class="submit"><input type="button" value="Login" id="submit"></div>
+                </div>
+                </div>
+            </form>
+            
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    var $form = $('#submit');
+                    $form.click(function() {
+                        submit();
+                    });
+
+                    function submit() {
+                    	var id = $('#member_id').val();
+                        var email = $('#member_email').val();
+                        var password = $('#member_password').val();
+                           
+                            var data_object = {
+                            		"id" : id,
+                                "email": email,
+                                "password": password
+  
+                            };
+                            
+                            var data_string = JSON.stringify(data_object);
+                          
+                          	   $.ajax({
+                                type: "GET",
+                                url: "api/member.do",
+                                crossDomain: true,
+                                data: "id=" + id,
+                                cache: false,
+                                dataType: 'json',
+                                timeout: 5000,
+                                success: function (response) {
+                                    if(response.status == 200){                                 	                                     	                                    	                               
+                    					var mypassword = response['response']['data'][0]['password'];
+                                    	var myemail = response['response']['data'][0]['email'];                                    
+                                    	var mystatus = response['response']['data'][0]['statusid'];
+                                    	if(email != myemail){
+                                      	  alert("Email is not match with this User ID's Email...");
+                                        }
+                                        else if(password != mypassword){
+                                      	  alert("Password is not match with this the User ID's Password...");
+                                        }
+                                        else{
+                                      	  if(mystatus == 0){
+                                      		  alert("Successfully Login, Welcome Root....");  
+                                      		document.location.href = "Root.html";
+                                      	  }else if (mystatus == 1){
+                                      		  alert("Successfully Login, Welcome Admin...."); 
+                                      		document.location.href = "Admin.html";
+                                      	  }else if (mystatus == 2){
+                                  		  	  alert("Successfully Login, Welcome Student or Teacher...."); 
+                                  		  	document.location.href = "Member.html";
+                                  	 	  }else if (mystatus == 3){
+                                 		  	  	  alert("Successfully Login, Welcome Outside Guest...."); 
+                                 		  	  	document.location.href = "Member.html";
+                                 	 	   	  }
+                                        }
+                                    }
+                                    console.log(response);
+                                },
+                                error: function () {
+                                    alert("There is no Input User Id, Please Register First...");
+                                }                               
+                            });  
+                          
+                          
+                    }
+
+                });
+          
+                
+        </script>
+        </div>
+
+  </body>
+  </html>

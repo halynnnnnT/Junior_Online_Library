@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Book Catalog</title>
+  <link href="statics/css/MySearch.css" rel="stylesheet">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+  <script src="statics/js/jquery-3.4.1.min.js"></script>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+	<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Member.html" style = 'padding-left: 40px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+   <ul class="nav">
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory3.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch3.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre3.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch3.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor3.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch3.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Borrow</a>
+      <ul>
+        <li><a href="BorrowBookCatalog.html">Books</a></li>
+        <li><a href="#">DVDs</a></li>
+        <li><a href="#">Thesis</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>
+	
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Book Catalog</h1>
+    <p class="lead">" The world is a book and those who don't travel read only a page "</p>
+  </div>
+   
+   <div class="input title required">
+     <label for="book_title">Input book title to start your journey</label>
+     <input name="title" type="text" id="book_title">
+   </div>
+   <div class="submit">
+        <input type="button" value="Explore Books" id="submit">
+   </div>
+
+   <div class="album py-5 bg-light">
+     <div class="container">
+       <div id="product_panel" class="row">
+       </div>
+     </div>
+   </div>
+
+  <script>   
+   
+    $(document).ready(function() {
+    	var $form = $('#submit');
+    	$form.click(function() {
+    		$("#product_panel").empty();
+    		getAllProduct(); 
+        });
+    });
+    
+    function getAllProduct() {
+      $.ajax({
+        type: "GET",
+        url: "api/product.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+          var product_panel = '';
+          if (response.status == 200) {
+        	$.each(response.response.data, function (){
+        		var myselection = $('#book_title').val();
+        		if (myselection == this.title){
+        		product_panel += addProduct(this);
+        		}
+        	})
+        	$("#product_panel").append(product_panel);
+          }
+        },
+        error: function () {
+          alert("Cannot Connect to Server");
+        }
+      });
+    }
+    
+    function addProduct(data) {
+    	let inner_html = '';
+    	inner_html += '<div class="col-md-4">';
+   		inner_html += '<div class="card-header">';
+   		inner_html += '<h5 class="font-weight-normal text-center text-truncate">' + data.title + '</h5>';
+ 		inner_html += '</div>';
+ 		inner_html += '<div class="card mb-4 shadow-sm">';
+ 		inner_html += '<img src="' + data.image + '" width="100%">';
+		inner_html += '<div class="card-body">';
+		inner_html += '<label class="card-text">Book Id &nbsp;&nbsp;&nbsp;&nbsp;   : <b>' + data.id + '</b></label><br>';
+		inner_html += '<label class="card-text">Author &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    : <b>' + data.author + '</b></label><br>';
+		inner_html += '<label class="card-text">Publisher &nbsp;  : <b>' + data.publisher + '</b></label><br>';
+		inner_html += '<label class="card-text">Language &nbsp;: <b>' + data.language + '</b></label><br> ';
+		inner_html += '<label class="card-text">Edition &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  : <b>' + data.edition + '</b></label><br>';
+		inner_html += '<label class="card-text">Date Issued : <b>' + data.dateIssued + '</b></label><br>';
+		inner_html += '<label class="card-text">Rating      : <b>' + data.rating + '</b></label><br>';
+		inner_html += '<p class="card-text"><b>' + data.description + '</b></p>';
+		inner_html += '<div class="d-flex justify-content-between align-items-center">';
+		inner_html += '<small class="text-muted">Available Now : ' + data.available + '</small>';
+		inner_html += '</div></div></div></div>';
+
+		return inner_html;
+    	
+    }
+    
+  </script>
+</body>
+
+</html>

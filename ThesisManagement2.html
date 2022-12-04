@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Thesis Management System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyDVDManagement.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
+</head>
+
+<body>
+	
+				<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Admin.html" style = 'padding-left: 40px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement2.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement2.html">Member Management</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory2.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch2.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre2.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch2.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor2.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch2.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording2.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording2.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording2.html">New Thesis Adding</a></li>     
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement2.html">Book Managements</a></li>
+        <li><a href="DVDManagement2.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement2.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>	
+
+    <div id="container">
+        <div id="content">
+            <h2>Thesis Management System</h2>
+            
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+            
+        	 <div class="input majorid required">
+                	<label for="thesis_majorid">Choose Thesis Major</label>
+                	<select name="majorid" id="thesis_majorid">
+                		<option value = 1>Liberal Arts</option>
+                		<option value = 2>Science</option>
+                		<option value = 3>Engineering</option>
+                		<option value = 4>Management</option>
+                		<option value = 5>Electrical Engineering & Computer Science</option>
+                		<option value = 6>Earth Sciences</option>
+                		<option value = 7>HAKKA Studies</option>
+                		<option value = 8>Health Sciences & Technology</option>
+                		<option value = 9>Space and Remote Sensing Research</option>
+                	</select>
+                </div>
+              <div class="submit">
+              	<input type="button" value="Search" id="submit">
+              </div>
+              
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>ThesisId</th>
+                        <th>Title</th>
+                        <th>University</th>
+                        <th>Author</th>
+                        <th>Professor</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <script type="text/javascript">
+                var sql_num = 0;
+                $(document).ready(function() {
+                	var $form = $('#submit');
+                	$form.click(function() {
+                		getAllMember();
+                    });
+                });
+                	
+                function deleteMember(id) {
+                    var check = window.confirm("Are you sure want to delete this Thesis ?");
+                    if (check == true) {
+                        console.log("You pressed OK!");
+                        var request = {'thesisId': id};
+                        var data_string = JSON.stringify(request);
+                        $.ajax({
+                            type: "DELETE",
+                            url: "api/product2.do",
+                            crossDomain: true,
+                            data: data_string,
+                            cache: false,
+                            dataType: 'json',
+                            timeout: 5000,
+                            success: function (response) {
+                                if(response.status == 200){
+                                    $("#flashMessage").html("Success, the selected Thesis has been deleted ...");
+                                    $("#flashMessage").show();
+                                    getAllMember();
+                                }
+                                console.log(response);
+                            },
+                            error: function () {
+                                alert("Cannot connect to server");
+                            }
+                        });
+                    }
+                    else {
+                        console.log("You pressed Cancel!");
+                    }
+                }
+
+                function getAllMember() {
+                    $.ajax({
+                            type: "GET",
+                            url: "api/product2.do",
+                            crossDomain: true,
+                            cache: false,
+                            dataType: 'json',
+                            timeout: 5000,
+                            success: function (response) {
+                                if(response.status == 200){
+                                    updateTable(response.response.data);
+                                    updateSQLTable(response.response);
+                                }
+                                console.log(response);
+                            },
+                            error: function () {
+                                alert("Cannot connect to server");
+                            }
+                    });
+                }
+                
+                function updateTable(data) {
+                	var myselection = $('#thesis_majorid option:selected').val();
+                    $("#table > tbody").empty();
+                    var table_html = '';
+                    $.each(data, function(index, value) { 
+                    	
+                    	if(myselection == value['majorId']){
+                        table_html += '<tr><td scope="row">' + value['id'] + '</td>';
+                        table_html += '<td>' + value['title'] + '</td>';
+                        table_html += '<td>' + value['university'] + '</td>';
+                        table_html += '<td>' + value['author'] + '</td>';
+                        table_html += '<td>' + value['professor'] + '</td>';
+                        table_html += '<td>' + '<a href="ThesisEdit2.html?id=' + value['id'] + '">EDIT</a> | ';
+                        table_html += '<a href="javascript: deleteMember(' + value['id'] + ');">DELETE</a></td></tr>';   
+                        }  
+                    })
+                    $("#table > tbody").append(table_html);
+                }
+                
+                function updateSQLTable(data) {
+                    $("#sql_log > tbody").empty();
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+                    
+                    sql_num = 0;
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+               
+                
+            </script>
+        </div></div>
+    
+</body>
+
+</html>

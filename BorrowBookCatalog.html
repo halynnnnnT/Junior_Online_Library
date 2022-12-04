@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Borrow Book's Catalog</title>
+  <link href="statics/css/MySearch.css" rel="stylesheet">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+  <script src="statics/js/jquery-3.4.1.min.js"></script>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<body>
+	<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Member.html" style = 'padding-left: 40px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">" The only books I have in my library are books that other folks have lent me "</h5>
+    <a class="btn btn-outline-primary" href="BookCart.html">Book's Cart</a>
+  </div>
+  
+  
+	<nav>
+  <ul class="nav">
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory3.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch3.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre3.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch3.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor3.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch3.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Borrow</a>
+      <ul>
+        <li><a href="BorrowBookCatalog.html">Books</a></li>
+        <li><a href="#">DVDs</a></li>
+        <li><a href="#">Thesis</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>
+
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Borrow Book's Catalog</h1>
+  </div>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div id="product_panel" class="row">
+      </div>
+    </div>
+  </div>
+
+  <script>   
+    var [client_cart_obj, client_cart_amount]  = getCartDataFromClient();
+    
+    function getAllProduct() {
+      $.ajax({
+        type: "GET",
+        url: "api/product.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+        	var product_panel = '';
+        	
+        	$.each(response.response.data, function (){
+        		product_panel += addProduct(this);
+        	})
+        	
+        	$("#product_panel").append(product_panel);
+        	setButtonFunction();
+        	checkIfExistInCart();
+          }
+        },
+        error: function () {
+          alert("Cannot connect to server");
+        }
+      });
+    }
+
+    getAllProduct();
+    
+    function addProduct(data) {
+    	
+		let inner_html = '';
+    	inner_html += '<div class="col-md-4">';
+   		inner_html += '<div class="card-header">';
+   		inner_html += '<h5 class="font-weight-normal text-center text-truncate">' + data.title + '</h5>';
+ 		inner_html += '</div>';
+ 		inner_html += '<div class="card mb-4 shadow-sm">';
+ 		inner_html += '<img src="' + data.image + '" width="100%">';
+		inner_html += '<div class="card-body">';
+		inner_html += '<label class="card-text">Book Id &nbsp;&nbsp;&nbsp;&nbsp;   : <b>' + data.id + '</b></label><br>';
+		inner_html += '<label class="card-text">Author &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    : <b>' + data.author + '</b></label><br>';
+		inner_html += '<p class="card-text"><b>' + data.description + '</b></p>';
+		inner_html += '<div class="d-flex justify-content-between align-items-center">';
+		inner_html += '<div class="btn-group">'; 
+		inner_html += '<button id="add_cart_' + data.id + '" name="add_cart" type="button" class="btn btn-lg btn-block btn-outline-primary">Add Book</button>';
+		inner_html += '</div>';
+		inner_html += '</div></div></div></div>';
+
+		return inner_html;
+    }
+    
+    function setButtonFunction() {
+    	$('button[name="add_cart"]').click(function () {
+    		var action = (this.id).split('_')[0];
+    		var destination = (this.id).split('_')[1];
+    		var id = (this.id).split('_')[2];
+    		addProductToCart(id, 1);
+        });
+    }
+    
+    function getCartDataFromClient() {
+    	let cart = JSON.parse(localStorage.getItem("client_cart_obj"));
+    	let amount = JSON.parse(localStorage.getItem("client_cart_amount"));
+    	cart = !cart ? new Array() : cart;
+    	amount = !amount ? new Array() : amount;
+    	return [cart, amount];
+    }
+    
+    function addProductToCart(id, amount) {
+    	if (!(client_cart_obj.includes(id))) {
+    		client_cart_obj.push(id);
+    		client_cart_amount.push(amount);
+    		updateCartDataToClent();
+    	}
+    	
+    	checkIfExistInCart();
+    }
+    
+    function updateCartDataToClent() {
+    	localStorage.setItem("client_cart_obj", JSON.stringify(client_cart_obj));
+    	localStorage.setItem("client_cart_amount", JSON.stringify(client_cart_amount));
+    }
+    
+    function checkIfExistInCart() {
+    	$('button[name="add_cart"]').each(function (){
+    		var action = (this.id).split('_')[0];
+    		var destination = (this.id).split('_')[1];
+    		var id = (this.id).split('_')[2];
+    		if (client_cart_obj.includes(id)) {
+    			setButtonState(this.id, false);
+    		}
+    		else {
+    			setButtonState(this.id, true);
+    		}
+    		
+        });
+    }
+    
+    function setButtonState(id, action) {
+    	if (!action) {
+    	    $('#' + id).prop('disabled', true);
+    	    $('#' + id).addClass('disabled');
+    	    $('#' + id).html('Book has added');
+    	}
+    	else {
+    		$('#' + id).prop('disabled', false);
+    	    $('#' + id).removeClass('disabled');
+    	    $('#' + id).html('Add Book');
+    	}
+    }
+  </script>
+
+</body>
+
+</html>

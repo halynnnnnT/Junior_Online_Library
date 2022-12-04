@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Administration Management</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyUserManagement.css">
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+		<div class = "header">
+	<p class = "title-header" style="margin-top: 0px;">Library Management System </p>
+	</div>
+	<nav style="margin-top: 10px;">
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+  </nav>
+
+        <div id="content">
+            <h2>Administration Management</h2>
+
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>User Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Telephone Number</th>
+                        <th>Status</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <script type="text/javascript">
+
+                var sql_num = 0;
+                function deleteMember(id) {
+                    var check = window.confirm("Are you sure want to delete this administration ?");
+                    if (check == true) {
+                        console.log("You pressed OK!");
+                        var request = {'id': id};
+                        var data_string = JSON.stringify(request);
+                        $.ajax({
+                            type: "DELETE",
+                            url: "api/member.do",
+                            crossDomain: true,
+                            data: data_string,
+                            cache: false,
+                            dataType: 'json',
+                            timeout: 5000,
+                            success: function (response) {
+                                if(response.status == 200){
+                                    $("#flashMessage").html("Success, the selected admin has been deleted ...");
+                                    $("#flashMessage").show();
+                                    getAllMember();
+                                }
+                                console.log(response);
+                            },
+                            error: function () {
+                                alert("Cannot connect to server");
+                            }
+                        });
+                    }
+                    else {
+                        console.log("You pressed Cancel!");
+                    }
+                }
+
+                function getAllMember() {
+                    $.ajax({
+                            type: "GET",
+                            url: "api/member.do",
+                            crossDomain: true,
+                            cache: false,
+                            dataType: 'json',
+                            timeout: 5000,
+                            success: function (response) {
+                                if(response.status == 200){
+                                    updateTable(response.response.data);
+                                    updateSQLTable(response.response);
+                                }
+                                console.log(response);
+                            },
+                            error: function () {
+                                alert("Cannot connect to server");
+                            }
+                    });
+                }
+
+                function updateTable(data) {
+                    $("#table > tbody").empty();
+                    var table_html = '';
+                    $.each(data, function(index, value) {
+                    	if(value['statusid'] == 1){
+                        table_html += '<tr><td scope="row">' + value['id'] + '</td>';
+                        table_html += '<td>' + value['name'] + '</td>';
+                        table_html += '<td>' + value['email'] + '</td>';
+                        table_html += '<td>' + value['numtelp'] + '</td>';
+                        table_html += '<td>' + 'Administration' + '</td>';
+                        table_html += '<td>' + '<a href="AdminEditing.html?id=' + value['id'] + '">EDIT</a> | ';
+                        table_html += '<a href="javascript: deleteMember(' + value['id'] + ');">DELETE</a></td></tr>';
+                    	}
+                    })
+
+                    $("#table > tbody").append(table_html);
+                }
+
+                function updateSQLTable(data) {
+                    $("#sql_log > tbody").empty();
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+
+                    sql_num = 0;
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+                $(document).ready(function() {
+                    getAllMember();
+                });
+            </script>
+        </div>
+</body>
+
+</html>

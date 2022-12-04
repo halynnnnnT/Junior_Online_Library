@@ -1,0 +1,240 @@
+html {
+  height: 100%;
+  background-color: #F8F8FF;
+background-image: url("");
+ background-repeat: repeat-y;
+background-size: 100%;
+
+
+}
+
+body {
+
+height: 100%;
+
+width: 100%;
+
+margin: 0 auto;
+
+font-family: 'Roboto', sans-serif;
+
+color: black;
+}
+
+nav {
+  display: block;
+  text-align:;
+}
+nav ul {
+  margin: 0;
+  padding:0;
+  list-style: none;
+}
+.nav a {
+  display:block;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.8em 1.8em;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-shadow: 0 -1px 0 #000;
+  position: relative;
+  font-family: Optima, sans-serif;
+}
+.nav{
+  vertical-align: top;
+  display: inline-block;
+  box-shadow:
+    1px -1px -1px 1px #000,
+    -1px 1px -1px 1px #fff,
+    0 0 6px 3px #68a3bf;
+  border-radius:6px;
+  margin-top: 10px;
+}
+.nav li {
+  position: relative;
+}
+.nav > li {
+  float: left;
+  border-bottom: 4px #aaa solid;
+  margin-right: 1px;
+}
+.nav > li > a {
+  margin-bottom: 1px;
+  box-shadow: inset 0 2em .33em -0.5em #000;
+}
+.nav > li:hover,
+.nav > li:hover > a {
+  border-bottom-color: #68a3bf;
+}
+.nav li:hover > a {
+  color:#68a3bf;
+}
+.nav > li:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.nav > li:first-child > a {
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child {
+  border-radius: 0 0 4px 0;
+  margin-right: 0;
+}
+.nav > li:last-child > a {
+  border-radius: 0 4px 0 0;
+}
+.nav li li a {
+  margin-top: 1px;
+}
+
+.nav li a:first-child:nth-last-child(2):before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: 5px solid transparent;
+  top: 50% ;
+  right:5px;
+ }
+
+ .nav ul {
+  position: absolute;
+  white-space: nowrap;
+  border-bottom: 5px solid  #68a3bf;
+  z-index: 1;
+  left: -99999em;
+}
+.nav > li:hover > ul {
+  left: auto;
+  margin-top: 5px;a
+  min-width: 100%;
+}
+.nav > li li:hover > ul {
+  left: 100%;
+  margin-left: 1px;
+  top: -1px;
+}
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before {
+  border-top-color: #aaa;
+}
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-bottom-color: #68a3bf;
+  margin-top:-5px
+}
+.nav li li > a:first-child:nth-last-child(2):before {
+  border-left-color: #68a3bf;
+  margin-top: -5px
+}
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-right-color: #68a3bf;
+  right: 10px;
+}
+.header{
+	background-color: #E0E0E0;
+	height: 180px;
+	background-image : url("https://www.madagascarislandsafaris.co.za/wp-content/uploads/2017/08/Travel-Blog-Header-1600x400.jpg");
+	background-size : 100%;
+
+
+}
+
+.title-header{
+	padding-top: 20px;
+	font-size: 50px;
+	font-family: 'Courier New', monospace;
+	font-weight: bold;
+	margin-left: 40px;
+	margin-top: 0px;
+	margin-bottom: 20px;
+
+}
+
+#flashMessage {
+	background-color : #DBF3FA;
+	height: 30px;
+	width:87%;
+	padding-left: 30px;
+	padding-top: 8px;
+	size: 16px;
+	margin-left: 30px;
+	margin-bottom: 10px;
+}
+
+.mytitle-header{
+	padding-top: 0px;
+	font-size: 30px;
+	font-family: 'Courier New', monospace;
+	font-weight: bold;
+	margin-left: 40px;
+}
+h2{
+	  text-align:center;
+	font-size: 50px;
+  margin-left: 50px;
+  font-family: Marker Felt, fantasy;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px 0 #fff, 5px 5px 0 #dfe8f1;
+
+  color: #33342e;
+
+}
+
+.submit{
+	padding:40px;
+	width:300px;
+	display:flex;
+	justify-content:center;
+	float:right;
+	position:relative;
+	left:30%;
+}
+#submit{
+	background-color:#c5c5c5;
+	border-radius: 16px;
+}
+#submit:hover{
+	background-color:black;
+	color:red;
+}
+input::placeholder {
+  font-size: 0.6px;
+}
+#thesis_image:placeholder-shown {
+  	text-overflow: ellipsis;
+}
+#thesis_description:placeholder-shown {
+ 	text-overflow: ellipsis;
+}
+#thesis_finalscore:placeholder-shown {
+    text-overflow: ellipsis;
+}
+form{
+	font-family:Optima, sans-serif;
+	padding:20px;
+	border-style:solid;
+	border-radius:1rem;
+	width:60%;
+	padding-bottom:20px;
+	margin:auto;
+	background-color:#ceeae073;
+}
+
+label{
+	font-size:20px;
+	display:inline-block;
+	width:250px;
+	text-align:left;
+	text-shadow: #FFA1A1 0.1em 0.1em 0.2em;
+}
+input{
+	font-size:20px;
+	cursor:pointer;
+	width:570px;
+	margin-left:20px;
+
+}

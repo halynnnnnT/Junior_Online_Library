@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>DVDs Update System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyEditing.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+		
+					<div class = "header">
+	<p class = "title-header">Library Management System </p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement2.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement2.html">Member Management</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory2.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch2.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre2.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch2.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor2.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch2.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording2.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording2.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording2.html">New Thesis Adding</a></li>     
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement2.html">Book Managements</a></li>
+        <li><a href="DVDManagement2.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement2.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>	
+		
+        <div id="content">
+            <h2><span style = 'font-size: 35px'>DVDs Update System</span></h2>
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+
+            <form id="form" accept-charset="utf-8">
+                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                
+                <div class="input dvdid required">
+                    <label for="dvd_dvdid">DVDId</label>
+                    <input name="dvdid" type="number" id="dvd_dvdid" required="required" disabled>
+                </div>
+                
+         		 <div class="input title required">
+                    <label for="dvd_title">DVD Title</label>
+                    <input name="title" maxlength="255" type="text" id="dvd_title" required="required">
+                </div>
+                
+                <div class="input director required">
+                    <label for="dvd_director">DVD Director</label>
+                    <input name="director" maxlength="100" type="text" id="dvd_director" required="required">
+                </div>
+                
+                <div class="input publisher required">
+                    <label for="dvd_publisher">DVD Publisher</label>
+                    <input name="publisher" maxlength="100" type="text" id="dvd_publisher" required="required">
+                </div>
+                
+                 <div class="input dateissued required">
+                    <label for="dvd_dateissued">DVD Date Issued</label>
+                    <input name="dateissued" type="text" id="dvd_dateissued" required="required">
+                </div>
+                
+                 <div class="input image required">
+                    <label for="dvd_image">DVD Image Address</label>
+                    <input name="image" maxlength="255" type="text" id="dvd_image" required="required">
+                </div>
+                
+                 <div class="input description required">
+                    <label for="dvd_description">DVD Description</label>
+                    <input name="description" maxlength="255" type="text" id="dvd_description" required="required">
+                </div>
+                
+                 <div class="input rating required">
+                    <label for="dvd_rating">DVD Rating</label>
+                    <input name="rating" maxlength="15" type="number" min = 0 id="dvd_rating" required="required">
+                </div>
+                
+                 <div class="input quantity required">
+                    <label for="dvd_quantity">DVD Quantity</label>
+                    <input name="quantity" maxlength="15" type="number" min = 0 id="dvd_quantity" required="required" disabled>
+                </div>
+                
+                <div class="input text">
+                    <label for="dvd_genreid">GenreId</label>
+                    <input name="genreid" type="text" id="dvd_genreid" disabled>
+                </div>
+                <div class="submit"><input type="button" value="Change DVD's Information" id="submit"></div>
+            </form>
+
+            <script type="text/javascript">
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var id = url.searchParams.get("id");
+                var sql_num = 0;
+
+                function updateMember(id) {
+                	var title = $('#dvd_title').val();
+                    var director = $('#dvd_director').val();
+                    var publisher = $('#dvd_publisher').val();
+                    var releaseDate = $('#dvd_dateissued').val();
+                    var image = $('#dvd_image').val();
+                    var description = $('#dvd_description').val();
+                    var rating = $('#dvd_rating').val();
+                    var quantity = $('#dvd_quantity').val();
+                    var genreId = $('#dvd_genreid').val();
+                    
+                    var rating_rule = /^(?:[1-4]\d{0,0}|0)\.\d$/;
+                    var quantity_rule = /^[0-9]+$/;
+                    var image_rule = /^(ftp|http|https):\/\/[^ "]+$/;
+
+                    if (!rating_rule.test(rating)) {
+                        alert("Rating must be one decimal place number and smaller than 5.0");
+                    }
+                    
+                    else if (!quantity_rule.test(quantity)) {
+                        alert("Quantity must be integer and nonegative number");
+                    }
+                    
+                    else if(!image_rule.test(image)){
+                    	alert("Image must be URL address");
+                    }
+                    else {
+                        var data_object = {
+                        	"dvdId" : id,
+                        	"title": title,
+                            "director": director,
+                            "publisher": publisher,
+                            "releaseDate": releaseDate,
+                            "image": image,
+                            "description": description,
+                            "rating": rating,
+                            "quantity": quantity,
+                            "genreId": genreId
+                        };
+
+                        var data_string = JSON.stringify(data_object);
+                        $.ajax({
+                                type: "PUT",
+                                url: "api/product1.do",
+                                data: data_string,
+                                crossDomain: true,
+                                cache: false,
+                                dataType: 'json',
+                                timeout: 5000,
+                                success: function (response) {
+                                    $('#flashMessage').html(response.message);
+                                    $('#flashMessage').show();
+                                    if(response.status == 200){
+                                        updateSQLTable(response.response);
+                                        getMember();
+                                    }
+                                },
+                                error: function () {
+                                    alert("Cannot connect to server");
+                                }
+                        });
+                    }
+                }
+
+                function updateSQLTable(data) {
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+                    
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+
+                function getMember() {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/product1.do",
+                        crossDomain: true,
+                        data: "dvdId=" + id,
+                        cache: false,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function (response) {
+                            if(response.status == 200){
+                            	updateSQLTable(response.response);
+                            	document.getElementById('dvd_dvdid').value = response['response']['data'][0]['id'];
+                            	document.getElementById('dvd_title').value = response['response']['data'][0]['title'];
+                            	document.getElementById('dvd_director').value = response['response']['data'][0]['director'];
+                            	document.getElementById('dvd_publisher').value = response['response']['data'][0]['publisher'];
+                            	document.getElementById('dvd_dateissued').value = response['response']['data'][0]['releaseDate'];
+                            	document.getElementById('dvd_image').value = response['response']['data'][0]['image'];
+                            	document.getElementById('dvd_description').value = response['response']['data'][0]['description'];
+                            	document.getElementById('dvd_rating').value = response['response']['data'][0]['rating'];
+                            	document.getElementById('dvd_quantity').value = response['response']['data'][0]['quantity'];
+                            	document.getElementById('dvd_genreid').value = response['response']['data'][0]['genreId'];
+                            }
+                            console.log(response);
+                        },
+                        error: function () {
+                            alert("Cannot connect to server");
+                        }
+                    });
+                }
+
+                $('#submit').click(function() {
+                    updateMember(id)
+                });
+                
+                $(document).ready(function() {
+                 	$("#sql_log > tbody").empty();
+                    getMember();
+                });
+            </script>
+        </div>
+  
+</body>
+
+</html>

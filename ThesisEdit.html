@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Thesis Update System</title>
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="statics/css/MyEditing.css">
+
+    <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+					<div class = "header">
+	<p class = "title-header">Library Management System </p>
+	
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>     
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+   
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>		
+			
+        <div id="content">
+            <h2><span style = 'font-size: 35px'>Thesis Update System</span></h2>
+            <div id="flashMessage" class="message" style="display: block;">Message</div>
+
+            <form id="form" accept-charset="utf-8">
+                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                
+                <div class="input thesisid required">
+                    <label for="thesis_thesisid">ThesisId</label>
+                    <input name="thesisid" type="number" id="thesis_thesisid" required="required" disabled>
+                </div>
+                
+         		 <div class="input title required">
+                    <label for="thesis_title">Thesis Title</label>
+                    <input name="title" maxlength="255" type="text" id="thesis_title" required="required" >
+                </div>
+                
+                <div class="input university required">
+                    <label for="thesis_university">Thesis University</label>
+                    <input name="university" maxlength="100" type="text" id="thesis_university" required="required" >
+                </div>
+                
+                <div class="input author required">
+                    <label for="thesis_author">Thesis Author</label>
+                    <input name="author" maxlength="100" type="text" id="thesis_author" required="required">
+                </div>
+                
+                <div class="input professor required">
+                    <label for="thesis_professor">Thesis Professor</label>
+                    <input name="professor" maxlength="100" type="text" id="thesis_professor" required="required" >
+                </div>
+                
+                 <div class="input datefinished required">
+                    <label for="thesis_datefinished">Thesis Date Finished</label>
+                    <input name="datefinished" type="text" id="thesis_datefinished" required="required">
+                </div>
+                
+                 <div class="input image required">
+                    <label for="thesis_image">Thesis Image Address</label>
+                    <input name="image" maxlength="255" type="text" id="thesis_image" required="required" placeholder = "Ex: https://tse4.mm.bing.net/th?id=OIP.TUZxSRMq6m2pqs9UId34LAHaEo&pid=Api&P=0&w=271&h=169">
+                </div>
+                
+                 <div class="input description required">
+                    <label for="thesis_description">Thesis Description</label>
+                    <input name="description" maxlength="255" type="text" id="thesis_description" required="required" placeholder = "Please Input a Thesis Summary, Max 255 Length">
+                </div>
+                
+                 <div class="input finalscore required">
+                    <label for="thesis_finalscore">Thesis Final Score</label>
+                    <input name="finalscore" maxlength="15" type="number" min = 0 id="thesis_finalscore" required="required" placeholder = "Please Input a final score, Max 100 and Cannot Decimal, Ex: 60 or 87">
+                </div>
+                
+                <div class="input text">
+                    <label for="thesis_majorid">MajorId</label>
+                    <input name="majorid" type="text" id="thesis_majorid" disabled>
+                </div>
+                <div class="submit"><input type="button" value="Change Thesis's Information" id="submit"></div>
+            </form>
+
+            <script type="text/javascript">
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var id = url.searchParams.get("id");
+                var sql_num = 0;
+               
+                
+                function updateMember(id) {
+                	
+                	var title = $('#thesis_title').val();
+                    var university = $('#thesis_university').val();
+                    var author = $('#thesis_author').val();
+                    var professor = $('#thesis_professor').val();
+                    var dateFinished = $('#thesis_datefinished').val();
+                    var image = $('#thesis_image').val();
+                    var description = $('#thesis_description').val();
+                    var finalScore = $('#thesis_finalscore').val();
+                    var majorId = $('#thesis_majorid').val();
+                    
+                    var score_rule = /^([0-9]?\d|100)$/;
+                    var image_rule = /^(ftp|http|https):\/\/[^ "]+$/;
+
+                  	
+                    if (!score_rule.test(finalScore)) {
+                        alert("Final score must be equal or between 0 to 100");
+                    }
+                    
+                    else if(!image_rule.test(image)){
+                    	alert("Image must be URL address");
+                    }
+                    else {
+                        var data_object = {
+                        	"thesisId" : id,
+                        	"title": title,
+                            "university": university,
+                            "author": author,
+                            "professor": professor,
+                            "dateFinished": dateFinished,
+                            "image": image,
+                            "description": description,
+                            "finalScore": finalScore,
+                            "majorId": majorId
+                        };
+
+                        var data_string = JSON.stringify(data_object);
+                        $.ajax({
+                                type: "PUT",
+                                url: "api/product2.do",
+                                data: data_string,
+                                crossDomain: true,
+                                cache: false,
+                                dataType: 'json',
+                                timeout: 5000,
+                                success: function (response) {
+                                    $('#flashMessage').html(response.message);
+                                    $('#flashMessage').show();
+                                    if(response.status == 200){
+                                        updateSQLTable(response.response);
+                                        getMember();
+                                    }
+                                },
+                                error: function () {
+                                    alert("Cannot connect to server");
+                                }
+                        });
+                    }
+                }
+
+                function updateSQLTable(data) {
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+                    
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+
+                function getMember() {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/product2.do",
+                        crossDomain: true,
+                        data: "thesisId=" + id,
+                        cache: false,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function (response) {
+                            if(response.status == 200){
+                            	 
+                            	updateSQLTable(response.response);
+                            	document.getElementById('thesis_thesisid').value = response['response']['data'][0]['id'];
+                            	document.getElementById('thesis_title').value = response['response']['data'][0]['title'];
+                            	document.getElementById('thesis_university').value = response['response']['data'][0]['university'];
+                            	document.getElementById('thesis_author').value = response['response']['data'][0]['author'];
+                            	document.getElementById('thesis_professor').value = response['response']['data'][0]['professor'];
+                            	document.getElementById('thesis_datefinished').value = response['response']['data'][0]['dateFinished'];
+                            	document.getElementById('thesis_image').value = response['response']['data'][0]['image'];
+                            	document.getElementById('thesis_description').value = response['response']['data'][0]['description'];
+                            	document.getElementById('thesis_finalscore').value = response['response']['data'][0]['finalScore'];         
+                            	document.getElementById('thesis_majorid').value = response['response']['data'][0]['majorId'];
+                            }
+                            console.log(response);
+                        },
+                        error: function () {
+                            alert("Cannot connect to server");
+                        }
+                    });
+                }
+
+                $('#submit').click(function() {
+                    updateMember(id)
+                });
+                
+                $(document).ready(function() {
+                 	$("#sql_log > tbody").empty();
+                    getMember();
+                });
+            </script>
+        </div>
+        
+</body>
+
+
+
+</html>

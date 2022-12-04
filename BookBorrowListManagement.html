@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Borrow Book's List</title>
+  <link href="statics/css/bootstrap.min.css" rel="stylesheet">
+  <link href="statics/css/font-awesome.min.css" rel="stylesheet">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
+  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <script src="statics/js/jquery-3.4.1.min.js"></script>
+  <script src="statics/js/jquery-confirm.js"></script>
+  <script src="statics/js/big.min.js"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<style>
+nav {
+  display: block;
+  text-align: ;
+}
+nav ul {
+  margin: 0;
+  padding:0;
+  list-style: none;
+}
+.nav a {
+  display:block;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.8em 1.8em;
+  text-transform: uppercase;
+  font-size: 100%;
+  letter-spacing: 1px;
+  text-shadow: 0 -1px 0 #000;
+  position: relative;
+}
+.nav{
+  vertical-align: top;
+  display: inline-block;
+  box-shadow:
+    1px -1px -1px 1px #000,
+    -1px 1px -1px 1px #fff,
+    0 0 6px 3px #68a3bf;
+  border-radius:6px;
+  margin-top: 10px;
+}
+.nav li {
+  position: relative;
+}
+.nav > li {
+  float: left;
+  border-bottom: 4px #aaa solid;
+  margin-right: 1px;
+}
+.nav > li > a {
+  margin-bottom: 1px;
+  box-shadow: inset 0 2em .33em -0.5em black;
+}
+.nav > li:hover,
+.nav > li:hover > a {
+  border-bottom-color: #68a3bf;
+}
+.nav li:hover > a {
+  color:#68a3bf;
+}
+.nav > li:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.nav > li:first-child > a {
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child {
+  border-radius: 0 0 4px 0;
+  margin-right: 0;
+}
+.nav > li:last-child > a {
+  border-radius: 0 4px 0 0;
+}
+.nav li li a {
+  margin-top: 1px;
+}
+
+.nav li a:first-child:nth-last-child(2):before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: 5px solid transparent;
+  top: 50% ;
+  right:5px;
+ }
+
+ .nav ul {
+  position: absolute;
+  white-space: nowrap;
+  border-bottom: 5px solid  #68a3bf;
+  z-index: 1;
+  left: -99999em;
+}
+.nav > li:hover > ul {
+  left: auto;
+  margin-top: 5px;
+  min-width: 100%;
+}
+.nav > li li:hover > ul {
+  left: 100%;
+  margin-left: 1px;
+  top: -1px;
+}
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before {
+  border-top-color: #aaa;
+}
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-bottom-color: #68a3bf;
+  margin-top:-5px
+}
+.nav li li > a:first-child:nth-last-child(2):before {
+  border-left-color: #aaa;
+  margin-top: -5px
+}
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent;
+  border-right-color: #68a3bf;
+  right: 10px;
+}
+
+.header{
+	background-color: #E0E0E0;
+	height: 180px;
+	background-image : url("https://www.madagascarislandsafaris.co.za/wp-content/uploads/2017/08/Travel-Blog-Header-1600x400.jpg");
+	background-size : 100%;
+
+}
+
+.title-header{
+	padding-top: 12px;
+	font-size: 50px;
+	font-family: 'Courier New', monospace;
+	font-weight: bold;
+	margin-left: 40px;
+}
+
+h1{
+ font-size: 36px;
+ margin-left: 50px;
+ font-family: Marker Felt, fantasy;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px 0 #fff, 5px 5px 0 #dfe8f1;
+
+  color: #33342e;
+}
+#submit{
+  float:right;
+  font-family:Verdana, sans-serif;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body style =" background-color : #F8F8FF">
+    <div class = "header">
+	<p class = "title-header">Library Management System </p>
+	<p class = "mytitle-header"><a class = "mytitle-header" href = "Root.html" style = 'padding-left: 40px; color: black;'><i class='fas fa-share-square' style='font-size:24px'>Back to Home page</i></a></p>
+</div>
+<nav>
+  <ul class="nav">
+    <li><a href="#">Order List Management</a>
+      <ul>
+        <li><a href="BookBorrowListManagement.html">Borrow Book List Management</a></li>
+        <li><a href="#">Borrow DVD List Management</a></li>
+        <li><a href="#">Borrow Thesis List Management</a></li>
+      </ul>
+    </li>
+    <li><a href="MemberManagement.html">Member Management</a>
+    </li>
+    <li><a href="AdminManagement.html">Admin Management</a>
+    </li>
+    <li><a href="AdminRegister.html">Admin Registration</a>
+    </li>
+    <li><a href="#">Search</a>
+      <ul>
+        <li><a href="BookCatalogCategory.html">Books by Categories</a></li>
+        <li><a href="BookCatalogSearch.html">Books by Search</a></li>
+        <li><a href="DVDCatalogGenre.html">DVDs by Genres</a></li>
+        <li><a href="DVDCatalogSearch.html">DVDs by Search</a></li>
+        <li><a href="ThesisCatalogMajor.html">Thesis by Major</a></li>
+        <li><a href="ThesisCatalogSearch.html">Thesis by Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Add Catalog</a>
+      <ul>
+        <li><a href="NewBookRecording.html">New Book Adding</a></li>
+        <li><a href="NewDVDRecording.html">New DVD Adding</a></li>
+        <li><a href="NewThesisRecording.html">New Thesis Adding</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Edit Catalog</a>
+      <ul>
+        <li><a href="BookManagement.html">Book Managements</a></li>
+        <li><a href="DVDManagement.html">DVD Managements</a></li>
+        <li><a href="ThesisManagement.html">Thesis Managements</a></li>
+      </ul>
+    </li>
+
+    <li><a href="Customer.html">Logout</a>
+    </li>
+
+  </ul>
+</nav>
+
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center bg-light">
+    <h1 class="display-4">Borrow Book's List System</h1>
+
+  </div>
+
+  <div class="container">
+	  <div class="py-5">
+	  	<div class='row'>
+		  	<div id='order_panel' class="row mb-2">
+        </div>
+      </div>
+	  </div>
+  </div>
+
+  <script>
+
+  function getAllOrderData() {
+	  $.ajax({
+          type: "GET",
+          url: "api/order.do",
+          crossDomain: true,
+          cache: false,
+          dataType: 'json',
+          timeout: 5000,
+          success: function (response) {
+              if(response.status == 200){
+            	  updateHTML(response.response.data);
+              }
+              console.log(response);
+          },
+          error: function () {
+              alert("Cannot connect to server");
+          }
+    });
+  }
+
+  getAllOrderData();
+
+  function updateHTML(data) {
+	  var inner_html = '';
+	  var temp = '';
+
+	  $.each(data, function (key, value) {
+		  var total_price = Big(0.0);
+		  $.each(value['product_info'], function (k, v) {
+		  });
+
+
+		  temp = '<div class="col-md-6">';
+		  temp += '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">';
+		  temp += '<div class="col p-4 d-flex flex-column position-static">';
+		  temp += '<strong class="d-inline-block mb-2 text-primary">Order Id：#' + value['order_info']['id'] + '</strong>';
+		  temp += '<h3 class="mb-0"><span class="p-2">' + value['order_info']['last_name'] + '</span>';
+		  temp += '<span>' + value['order_info']['first_name'] + '</span></h3>';
+		  temp += '<hr/>';
+		  temp += '<div class="mb-1 text-muted">Borrow Date：' + value['order_info']['create'] + '</div>';
+		  temp += '<div class="mb-1 text-muted">Expected Return Date：' + value['order_info']['modify'] + '</div>';
+		  temp += '<a href="BookBorrowListDetails.html?id=' + value['order_info']['id'] + '" class="stretched-link">More Details Information or Return Book</a>';
+		  temp += '</div></div></div>';
+		  inner_html = temp + inner_html;
+	  });
+
+	  $('#order_panel').append(inner_html);
+
+  }
+  </script>
+
+ <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="Customer.html">Back to top</a>
+      </p>
+
+    </div>
+  </footer>
+
+</html>
